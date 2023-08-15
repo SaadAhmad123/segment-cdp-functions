@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "ES6", // Target ECMAScript version
+    "target": "es6", // Target ECMAScript version
     "module": "commonjs", // Module system
     "declaration": true, // Generates corresponding '.d.ts' file
     "outDir": "./dist", // Output directory for compiled JavaScript
@@ -11,11 +11,10 @@
     "resolveJsonModule": true
   },
   "include": [
-    "src/**/*.ts", // Include all TypeScript files in the 'src' directory
-    "index.ts"
+    "src/**/*.ts" // Include all TypeScript files in the 'src' directory
   ],
   "exclude": [
     "node_modules", // your existing exclude pattern
-    "tests/**/*.spec.ts" // this line will exclude all .spec.ts files
+    "**/*.spec.ts" // this line will exclude all .spec.ts files
   ]
 }

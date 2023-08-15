@@ -1,10 +1,12 @@
+#!/usr/bin/env node
+
 import { Command } from 'commander';
-import init from './src/init'
+import init from './init'
 import path from 'path';
 
 let packageInfo: Record<string, any>;
 try {
-    packageInfo = require(path.join(__dirname, './package.json'));
+    packageInfo = require(path.join(__dirname, '../package.json'));
 } catch (error) {
     console.error('Failed to load package.json:', (error as Error).message);
     process.exit(1);
