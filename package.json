@@ -1,6 +1,6 @@
 {
   "name": "segment-cdp-functions",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "This library is a framework which allows one to create Segment CDP function and manager their DevOps",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -11,7 +11,7 @@
     "start": "ts-node index.ts"
   },
   "bin": {
-    "ts-cli-package": "./dist/index.js"
+    "segment-cdp-functions": "./dist/index.js"
   },
   "keywords": [
     "segment",
