@@ -1,6 +1,6 @@
 {
   "name": "segment-cdp-functions",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "This library is a framework which allows one to create Segment CDP function and manager their DevOps",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
