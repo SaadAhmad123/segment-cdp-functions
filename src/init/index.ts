@@ -59,6 +59,13 @@ export default function init() {
         required: true,
         conform: checkOrCreateDir,
       },
+      bundleDir: {
+        description: 'Where will the final bundle reside? <default: .bundle>',
+        default: '.bundle',
+        message: 'Invalid directory path',
+        required: true,
+        conform: checkOrCreateDir,
+      },
     },
   };
 
@@ -77,6 +84,7 @@ export default function init() {
         source: result.sourceDir,
         transpiled: result.transpiledCodeDir,
         build: result.buildDir,
+        bundle: result.bundleDir,
       },
       segment: {
         settings: [],
@@ -160,19 +168,17 @@ export default function init() {
 
     writeToFileIfNotExists(
       path.join(process.cwd(), 'rollup.config.js'),
-      `
-import commonjs from '@rollup/plugin-commonjs';
+      `var commonjs = require('@rollup/plugin-commonjs');
 
 export default {
   input: './${config.directories.build}/index.js',
   output: {
-    file: './${config.directories.build}/__rolledup_bundle.js',
-    format: 'esm',
+    file: './${config.directories.bundle}/index.js',
+    format: 'cjs',
     sourcemap: true // optional if you want source maps
   },
   plugins: [commonjs()]
-};
-            `,
+};`,
     );
 
     console.log('Configuration saved successfully!');
