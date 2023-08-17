@@ -96,8 +96,20 @@ export default function init() {
             path.join(process.cwd(), '.babelrc'),
             JSON.stringify(
                 {
-                    presets: ['@babel/preset-env', '@babel/preset-typescript'],
-                    plugins: ['@babel/plugin-transform-modules-commonjs'],
+                    "presets": [
+                        [
+                            "@babel/preset-env",
+                            {
+                                "targets": {
+                                    "esversion": 5
+                                }
+                            }
+                        ],
+                        "@babel/preset-typescript"
+                    ],
+                    "plugins": [
+                        "@babel/plugin-transform-modules-commonjs"
+                    ]
                 },
                 null,
                 2,
@@ -141,7 +153,7 @@ export default function init() {
                 execSync('npm install typescript ts-node --save-dev', { stdio: "inherit" });
             }
             execSync(
-                'npm install --save-dev @babel/cli @babel/preset-env @babel/preset-typescript @babel/plugin-transform-modules-commonjs',
+                'npm install --save-dev @babel/core @babel/cli @babel/preset-env @babel/preset-typescript @babel/plugin-transform-modules-commonjs',
                 { stdio: "inherit" }
             );
         } catch (error) {
