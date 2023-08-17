@@ -41,8 +41,8 @@ export default function init() {
       },
       settingsFile: {
         description:
-          'Name of the settings file (this defines the setting/ config of the the segment function)? <default: function.json>',
-        default: 'function.json',
+          'Name of the settings file (this defines the setting/ config of the the segment function)? <default: segment.config.json>',
+        default: 'segment.config.json',
         required: true,
       },
       transpiledCodeDir: {
@@ -68,9 +68,9 @@ export default function init() {
       return;
     }
 
-    // Store the configuration to function.json
     const config = {
       name: result.functionName,
+      description: 'A custom segment function',
       type: result.functionType,
       transpiler: result.projectType,
       directories: {
@@ -121,6 +121,28 @@ export default function init() {
       ),
     );
 
+    writeToFileIfNotExists(
+      path.join(process.cwd(), 'package.json'),
+      JSON.stringify(
+        {
+          name: config.name,
+          version: '1.0.0',
+          description: config.description,
+          main: `./${config.directories.build}/index.ts`,
+          scripts: {
+            build: `npx tsc && npx babel ./${config.directories.transpiled} --out-file ./${config.directories.build}/index.js`,
+            dev: `npx ts-node ./${config.directories.source}/index.ts`,
+          },
+          keywords: [],
+          author: 'segment-cdp-developer',
+          license: 'MIT',
+          devDependencies: {},
+        },
+        null,
+        2,
+      ),
+    );
+
     // For .gitignore
     writeOrAppendToFile(
       path.join(process.cwd(), '.gitignore'),
@@ -130,24 +152,21 @@ export default function init() {
     console.log('Configuration saved successfully!');
 
     try {
-      if (!fs.existsSync(path.join(process.cwd(), 'package.json'))) {
-        execSync('npm init -y');
-      }
-    } catch (error) {
-      console.error('Failed to init project:', (error as Error).message);
-      return;
-    }
-
-    try {
       if (result.projectType === 'TypeScript') {
-        execSync('npm install typescript ts-node --save-dev', {
-          stdio: 'inherit',
-        });
+        execSync(
+          'npm install typescript ts-node segment-cdp-functions --save-dev',
+          {
+            stdio: 'inherit',
+          },
+        );
       }
       execSync(
         'npm install --save-dev @babel/core @babel/cli @babel/preset-env @babel/preset-typescript @babel/plugin-transform-modules-commonjs',
         { stdio: 'inherit' },
       );
+      execSync('git init', {
+        stdio: 'inherit',
+      });
     } catch (error) {
       console.error('Failed to install packages:', (error as Error).message);
       return;
