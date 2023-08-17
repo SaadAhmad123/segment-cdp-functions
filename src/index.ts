@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import { Command } from 'commander';
-import init from './init'
+import init from './init';
 import path from 'path';
 
 let packageInfo: Record<string, any>;
@@ -13,17 +13,14 @@ try {
 }
 
 const program = new Command();
-
-program
-    .version(packageInfo.version)
-    .description(packageInfo.description);
+program.version(packageInfo.version).description(packageInfo.description);
 
 program
     .command('init')
     .description('Initialise the Segment CDP Functions framework')
     .action(() => {
         try {
-            init()
+            init();
         } catch (error) {
             console.error('Failed to initialize:', (error as Error).message);
         }

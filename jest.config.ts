@@ -6,8 +6,8 @@
 export default {
   clearMocks: true,
   collectCoverage: true,
-  coverageDirectory: "coverage",
+  coverageDirectory: 'coverage',
   preset: 'ts-jest',
   testEnvironment: 'node',
   testMatch: ['tests/**/*.spec.ts'], // This line tells Jest to only consider files with .spec.ts
-}
+};
