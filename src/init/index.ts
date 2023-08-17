@@ -180,7 +180,7 @@ module.exports = {
   output: {
     file: './${config.directories.bundle}/index.js',
     format: 'cjs',
-    sourcemap: true // optional if you want source maps
+    sourcemap: false // optional if you want source maps
   },
   plugins: [commonjs()]
 };`,
