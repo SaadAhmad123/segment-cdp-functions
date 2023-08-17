@@ -163,14 +163,19 @@ export default function init() {
     // For .gitignore
     writeOrAppendToFile(
       path.join(process.cwd(), '.gitignore'),
-      `${config.directories.build}\n${config.directories.transpiled}\nnode_modules`,
+      [
+        'node_modules',
+        config.directories.build,
+        config.directories.transpiled,
+        config.directories.bundle,
+      ].join('\n'),
     );
 
     writeToFileIfNotExists(
       path.join(process.cwd(), 'rollup.config.js'),
       `var commonjs = require('@rollup/plugin-commonjs');
 
-export default {
+module.exports = {
   input: './${config.directories.build}/index.js',
   output: {
     file: './${config.directories.bundle}/index.js',
