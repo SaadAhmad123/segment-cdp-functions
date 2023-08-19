@@ -3,12 +3,14 @@
 import { Command } from 'commander';
 import init from './init';
 import path from 'path';
+import log from './common/log';
+
 
 let packageInfo: Record<string, any>;
 try {
   packageInfo = require(path.join(__dirname, '../package.json'));
 } catch (error) {
-  console.error('Failed to load package.json:', (error as Error).message);
+  log.error('Failed to load package.json:', (error as Error).message);
   process.exit(1);
 }
 
@@ -22,7 +24,7 @@ program
     try {
       init();
     } catch (error) {
-      console.error('Failed to initialize:', (error as Error).message);
+      log.error('Failed to initialize:', (error as Error).message);
     }
   });
 
@@ -34,7 +36,7 @@ program
 try {
   program.parse(process.argv);
 } catch (error) {
-  console.error('Error parsing commands:', (error as Error).message);
+  log.error('Error parsing commands:', (error as Error).message);
   program.outputHelp();
 }
 

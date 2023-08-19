@@ -2,89 +2,30 @@ import prompt from 'prompt';
 import fs from 'fs';
 import path from 'path';
 import { execSync } from 'child_process';
-import { writeOrAppendToFile, writeToFileIfNotExists } from '../common';
+import { runCliCommands, writeOrAppendToFile, writeToFileIfNotExists } from '../common';
+import promptSchema from './promptSchema';
+import * as createProjectFiles from './createProjectFiles'
+import log from '../common/log';
 
 export default function init() {
   prompt.start();
 
-  const schema = {
-    properties: {
-      projectType: {
-        description:
-          'Do you want to use JavaScript or TypeScript? <default: TypeScript>',
-        default: 'TypeScript',
-        pattern: /JavaScript|TypeScript/,
-        message: 'Invalid option. Choose between JavaScript or TypeScript',
-        required: true,
-      },
-      sourceDir: {
-        description: 'Where will the code reside? <default: src>',
-        default: 'src',
-        message: 'Invalid directory path',
-        required: true,
-        conform: checkOrCreateDir,
-      },
-      functionName: {
-        description:
-          'What is the name of your function? <default: my-segment-destination-function>',
-        default: 'my-segment-destination-function',
-        required: true,
-      },
-      functionType: {
-        description:
-          'What is the type of your segment function (only Destination available at the moment)? <default: Destination>',
-        pattern: /Destination/,
-        message:
-          'Invalid option. Only Destination option available at the moment',
-        default: 'Destination',
-        required: true,
-      },
-      settingsFile: {
-        description:
-          'Name of the settings file (this defines the setting/ config of the the segment function)? <default: segment.config.json>',
-        default: 'segment.config.json',
-        required: true,
-      },
-      transpiledCodeDir: {
-        description: 'Where will the transpiled code reside? <default: .dist>',
-        default: '.dist',
-        message: 'Invalid directory path',
-        required: true,
-        conform: checkOrCreateDir,
-      },
-      buildDir: {
-        description: 'Where will the final build reside? <default: .build>',
-        default: '.build',
-        message: 'Invalid directory path',
-        required: true,
-        conform: checkOrCreateDir,
-      },
-      bundleDir: {
-        description: 'Where will the final bundle reside? <default: .bundle>',
-        default: '.bundle',
-        message: 'Invalid directory path',
-        required: true,
-        conform: checkOrCreateDir,
-      },
-    },
-  };
-
-  prompt.get(schema, (err, result) => {
+  prompt.get(promptSchema, (err, result) => {
     if (err) {
-      console.error(err);
+      log.error(err)
       return;
     }
 
-    const config = {
-      name: result.functionName,
+    const config: ConfigType = {
+      name: result.functionName.toString(),
       description: 'A custom segment function',
-      type: result.functionType,
-      transpiler: result.projectType,
+      type: result.functionType.toString() as "JavaScript" | "TypeScript",
+      transpiler: result.projectType.toString(),
       directories: {
-        source: result.sourceDir,
-        transpiled: result.transpiledCodeDir,
-        build: result.buildDir,
-        bundle: result.bundleDir,
+        source: result.sourceDir.toString(),
+        transpiled: result.transpiledCodeDir.toString(),
+        build: result.buildDir.toString(),
+        bundle: result.bundleDir.toString(),
       },
       segment: {
         settings: [],
@@ -96,135 +37,26 @@ export default function init() {
       JSON.stringify(config, null, 2),
     );
 
-    writeToFileIfNotExists(
-      path.join(process.cwd(), '.babelrc'),
-      JSON.stringify(
-        {
-          presets: ['@babel/preset-env', '@babel/preset-typescript'],
-          plugins: ['@babel/plugin-transform-modules-commonjs'],
-        },
-        null,
-        2,
-      ),
-    );
+    createProjectFiles.babelRc()
+    createProjectFiles.tsConfig(config)
+    createProjectFiles.packageJson(config)
+    createProjectFiles.gitIgnore(config)
+    createProjectFiles.rollupConfig(config)
+    createProjectFiles.src(config)
 
-    writeToFileIfNotExists(
-      path.join(process.cwd(), 'tsconfig.json'),
-      JSON.stringify(
-        {
-          compilerOptions: {
-            target: 'ES5', // Target ECMAScript version
-            module: 'commonjs', // Module system
-            declaration: true, // Generates corresponding '.d.ts' file
-            outDir: `./${result.transpiledCodeDir}`,
-            strict: true, // Enables strict type checking
-            esModuleInterop: true, // Enables CommonJS/AMD/UMD module interop
-            skipLibCheck: true, // Skip type checking of all declaration files
-            forceConsistentCasingInFileNames: true,
-            resolveJsonModule: true,
-          },
-          include: [`./${result.sourceDir}/**/*.ts`],
-          exclude: [
-            'node_modules', // your existing exclude pattern
-            '**/*.spec.ts', // this line will exclude all .spec.ts files
-          ],
-        },
-        null,
-        2,
-      ),
-    );
-
-    writeToFileIfNotExists(
-      path.join(process.cwd(), 'package.json'),
-      JSON.stringify(
-        {
-          name: config.name,
-          version: '1.0.0',
-          description: config.description,
-          main: `./${config.directories.build}/index.ts`,
-          scripts: {
-            compile:
-              config.transpiler === 'TypeScript'
-                ? `npx tsc && npx babel ./${config.directories.transpiled} --out-dir ./${config.directories.build}`
-                : `npx babel ./${config.directories.source} --out-dir ./${config.directories.build}`,
-            dev: `npx ts-node ./${config.directories.source}/index.ts`,
-            rollup: 'npm run compile && npx rollup --config',
-          },
-          keywords: [],
-          author: 'segment-cdp-developer',
-          license: 'MIT',
-          devDependencies: {},
-        },
-        null,
-        2,
-      ),
-    );
-
-    // For .gitignore
-    writeOrAppendToFile(
-      path.join(process.cwd(), '.gitignore'),
-      [
-        'node_modules',
-        config.directories.build,
-        config.directories.transpiled,
-        config.directories.bundle,
-      ].join('\n'),
-    );
-
-    writeToFileIfNotExists(
-      path.join(process.cwd(), 'rollup.config.js'),
-      `var commonjs = require('@rollup/plugin-commonjs');
-
-module.exports = {
-  input: './${config.directories.build}/index.js',
-  output: {
-    file: './${config.directories.bundle}/index.js',
-    format: 'cjs',
-    sourcemap: false // optional if you want source maps
-  },
-  plugins: [commonjs()]
-};`,
-    );
-
-    console.log('Configuration saved successfully!');
-
+    log.log('Configuration saved successfully!');
     try {
-      if (result.projectType === 'TypeScript') {
-        execSync(
-          'npm install typescript ts-node segment-cdp-functions --save-dev',
-          {
-            stdio: 'inherit',
-          },
-        );
-      }
-      execSync(
-        'npm install --save-dev @babel/core @babel/cli @babel/preset-env @babel/preset-typescript @babel/plugin-transform-modules-commonjs @rollup/plugin-commonjs rollup',
-        { stdio: 'inherit' },
-      );
-      execSync('git init', {
-        stdio: 'inherit',
-      });
+      runCliCommands([
+        config.type === "TypeScript" ? "npm install typescript ts-node segment-cdp-functions --save-dev" : "",
+        "npm install --save-dev @babel/core @babel/cli @babel/preset-env @babel/preset-typescript @babel/plugin-transform-modules-commonjs @rollup/plugin-commonjs rollup",
+        "npm install --save-dev atob aws-sdk btoa fetch-retry form-data @google-cloud/automl @google-cloud/bigquery @google-cloud/datastore @google-cloud/firestore @google-cloud/functions @google-cloud/pubsub @google-cloud/storage @google-cloud/tasks @hubspot/api-client jsforce jsonwebtoken libphonenumber-js lodash mailjet moment-timezone node-fetch oauth @sendgrid/client @sendgrid/mail skyflow stripe twilio uuidv5 winston xml xml2js zlib",
+        "git init"
+      ])
     } catch (error) {
-      console.error('Failed to install packages:', (error as Error).message);
+      log.error('Failed to install packages:', (error as Error).message);
       return;
     }
-
-    console.log('Project initialised successfully!');
+    log.log('Project initialised successfully!');
   });
 }
 
-function checkOrCreateDir(value: string) {
-  if (!fs.existsSync(value)) {
-    try {
-      fs.mkdirSync(value, { recursive: true });
-      console.log(`Directory did not exist, so I created it for you.`);
-      return true;
-    } catch (error) {
-      console.error(
-        `Failed to create directory. Please check permissions and try again.`,
-      );
-      return false;
-    }
-  }
-  return true;
-}
