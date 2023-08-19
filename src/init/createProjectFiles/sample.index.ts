@@ -1,3 +1,4 @@
+export default `
 // Learn more about destination functions API at
 // https://segment.com/docs/connections/destinations/destination-functions
 
@@ -15,7 +16,7 @@ async function onTrack(event: Record<string, any>, settings: Record<string, any>
 		response = await fetch(endpoint, {
 			method: 'POST',
 			headers: {
-				Authorization: `Basic ${btoa(settings.apiKey + ':')}`,
+				Authorization: ${"`Basic ${ btoa(settings.apiKey + ':') } `"},
 				'Content-Type': 'application/json'
 			},
 			body: JSON.stringify(event)
@@ -27,7 +28,7 @@ async function onTrack(event: Record<string, any>, settings: Record<string, any>
 
 	if (response.status >= 500 || response.status === 429) {
 		// Retry on 5xx (server errors) and 429s (rate limits)
-		throw new RetryError(`Failed with ${response.status}`);
+		throw new RetryError(${"`Failed with ${ response.status } `"});
 	}
 }
 
@@ -95,3 +96,4 @@ async function onBatch(events: Record<string, any>[], settings: Record<string, a
 	// Learn more at https://segment-docs.netlify.app/docs/connections/functions/destination-functions/#batching-the-destination-function
 	throw new EventNotSupported('onBatch is not supported');
 }
+`

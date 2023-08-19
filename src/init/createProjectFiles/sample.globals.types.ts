@@ -1,3 +1,4 @@
+export default `
 declare var atob: typeof import('atob');
 declare var AWS: typeof import('aws-sdk');
 declare var btoa: typeof import('btoa');
@@ -52,3 +53,4 @@ declare var xml2js: typeof import('xml2js');
 declare var zlib: {
     zlib: typeof import('zlib').zlib
 };
+`

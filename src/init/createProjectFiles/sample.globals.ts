@@ -1,3 +1,4 @@
+export default `
 // Import the libraries
 import * as _atob from 'atob';
 import * as _AWS from 'aws-sdk';
@@ -68,3 +69,4 @@ import { zlib as _zlibLib } from 'zlib';
 (global as any).xml = _xml;
 (global as any).xml2js = _xml2js;
 (global as any).zlib = { zlib: _zlibLib };
+`

@@ -1,3 +1,4 @@
+export default `
 /**
  * A class representing a Slack bot that can be used to log events to a specified Slack channel.
  */
@@ -5,7 +6,7 @@ export default class Slack {
     botToken: string
     channel: string
     onlyAllowErrors: boolean
-    
+
     /**
      * Creates a new Slack bot.
      * @param {string} [botToken] - The bot token to use for authentication.
@@ -27,16 +28,16 @@ export default class Slack {
     async _log(e: any): Promise<any> {
         try {
             if (!this.botToken || !this.channel) return;
-            return await fetch(`https://slack.com/api/chat.postMessage`, {
+            return await fetch("https://slack.com/api/chat.postMessage", {
                 method: 'POST',
                 headers: {
-                    Authorization: `Bearer ${this.botToken}`,
+                    Authorization: ${"`Bearer ${ this.botToken }`"},
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
                     channel: this.channel,
                     pretty: 1,
-                    text: '```' + JSON.stringify(e, null, 2) + '```'
+                    text: '${"```"}' + JSON.stringify(e, null, 2) + '${"```"}'
                 })
             });
         } catch (e) {
@@ -70,4 +71,4 @@ export default class Slack {
         };
         await this._log(event).catch(e => console.log(e));
     }
-}
+}`

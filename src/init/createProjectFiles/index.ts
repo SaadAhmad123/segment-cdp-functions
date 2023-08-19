@@ -1,6 +1,10 @@
 import path from 'path';
 import { readFileContentSync, writeOrAppendToFile, writeToFileIfNotExists } from '../../common';
 import { ConfigType } from '../../common/types'
+import sampleIndex from './sample.index'
+import sampleGlobals from './sample.globals';
+import sampleGlobalsTypes from './sample.globals.types';
+import sampleSlack from './sample.slack';
 
 export function babelRc() {
     writeToFileIfNotExists(
@@ -105,25 +109,25 @@ module.exports = {
 export function srcIndex(config: ConfigType) {
     writeToFileIfNotExists(
         path.join(process.cwd(), `${config.directories.source}/index.ts`),
-        readFileContentSync("./sample.index.ts.txt")
+        sampleIndex
     )
 }
 
 export function srcSlack(config: ConfigType) {
     writeToFileIfNotExists(
         path.join(process.cwd(), `${config.directories.source}/slack.ts`),
-        readFileContentSync("./sample.slack.ts.txt")
+        sampleSlack
     )
 }
 
 export function srcGlobals(config: ConfigType) {
     writeToFileIfNotExists(
         path.join(process.cwd(), `${config.directories.source}/globals.d.ts`),
-        readFileContentSync("./sample.globals.d.ts.txt")
+        sampleGlobalsTypes
     )
     writeToFileIfNotExists(
         path.join(process.cwd(), `${config.directories.source}/globals.ts`),
-        readFileContentSync("./sample.globals.ts.txt")
+        sampleGlobals
     )
 }
 
