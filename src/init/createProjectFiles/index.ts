@@ -1,5 +1,6 @@
 import path from 'path';
 import { readFileContentSync, writeOrAppendToFile, writeToFileIfNotExists } from '../../common';
+import { ConfigType } from '../../common/types'
 
 export function babelRc() {
     writeToFileIfNotExists(

@@ -1,11 +1,10 @@
 import prompt from 'prompt';
-import fs from 'fs';
 import path from 'path';
-import { execSync } from 'child_process';
-import { runCliCommands, writeOrAppendToFile, writeToFileIfNotExists } from '../common';
+import { runCliCommands, writeToFileIfNotExists } from '../common';
 import promptSchema from './promptSchema';
 import * as createProjectFiles from './createProjectFiles'
 import log from '../common/log';
+import { ConfigType } from '../common/types'
 
 export default function init() {
   prompt.start();

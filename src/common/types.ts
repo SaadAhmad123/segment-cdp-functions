@@ -1,4 +1,4 @@
-type ConfigType = {
+export type ConfigType = {
     name: string
     description: string
     type: "JavaScript" | "TypeScript"
