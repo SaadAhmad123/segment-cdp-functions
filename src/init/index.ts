@@ -50,7 +50,7 @@ export default function init() {
         "npm install --save-dev @babel/core @babel/cli @babel/preset-env @babel/preset-typescript @babel/plugin-transform-modules-commonjs @rollup/plugin-commonjs rollup",
         "npm install --save-dev atob aws-sdk btoa fetch-retry form-data @google-cloud/automl @google-cloud/bigquery @google-cloud/datastore @google-cloud/firestore @google-cloud/functions @google-cloud/pubsub @google-cloud/storage @google-cloud/tasks @hubspot/api-client jsforce jsonwebtoken libphonenumber-js lodash mailjet moment-timezone node-fetch oauth @sendgrid/client @sendgrid/mail skyflow stripe twilio uuidv5 winston xml xml2js zlib",
         "git init"
-      ])
+      ].filter(item => Boolean(item.trim().length)))
     } catch (error) {
       log.error('Failed to install packages:', (error as Error).message);
       return;
