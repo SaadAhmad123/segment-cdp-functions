@@ -26,7 +26,7 @@ export function build() {
             throw new Error("Bundle JS file index.js not found in build directory!");
         }
 
-        const bundleJS = readFileContentSync(bundleJSPath).split("\n").splice(1, 0, "var exports = {}").join("\n");
+        const bundleJS = ["var exports = {};", ...readFileContentSync(bundleJSPath).split("\n")].join("\n");
 
         const outputFilePath = path.join(outputDir, 'to_deploy.json');
         fs.writeFileSync(
