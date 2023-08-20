@@ -23,7 +23,7 @@ async function onTrack(event: Record<string, any>, settings: Record<string, any>
 		});
 	} catch (error) {
 		// Retry on connection error
-		throw new RetryError(error.message);
+		throw new RetryError((error as Error).message);
 	}
 
 	if (response.status >= 500 || response.status === 429) {

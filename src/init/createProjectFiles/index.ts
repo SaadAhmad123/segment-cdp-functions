@@ -34,7 +34,6 @@ export function tsConfig(config: ConfigType) {
                     esModuleInterop: true, // Enables CommonJS/AMD/UMD module interop
                     skipLibCheck: true, // Skip type checking of all declaration files
                     forceConsistentCasingInFileNames: true,
-                    resolveJsonModule: true,
                 },
                 include: [`./${config.directories.source}/**/*.ts`],
                 exclude: [
@@ -60,7 +59,7 @@ export function packageJson(config: ConfigType) {
                 main: `./${config.directories.source}/index.ts`,
                 scripts: {
                     dev: `npx ts-node ./${config.directories.source}/index.ts`,
-                    build: 'npm run compile && npx rollup --config',
+                    build: 'npx rollup --config',
                 },
                 keywords: [],
                 author: 'segment-cdp-developer',

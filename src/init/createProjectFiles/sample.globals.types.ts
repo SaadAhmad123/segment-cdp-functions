@@ -53,4 +53,6 @@ declare var xml2js: typeof import('xml2js');
 declare var zlib: {
     zlib: typeof import('zlib').zlib
 };
+declare class RetryError extends Error {}
+declare class EventNotSupported extends Error {}
 `
