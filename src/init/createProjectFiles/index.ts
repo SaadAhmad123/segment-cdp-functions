@@ -28,7 +28,7 @@ export function tsConfig(config: ConfigType) {
                 compilerOptions: {
                     target: 'ESNext', // Target ECMAScript version
                     "moduleResolution": "NodeNext",
-                    declaration: true, // Generates corresponding '.d.ts' file
+                    declaration: false, // Generates corresponding '.d.ts' file
                     outDir: `./${config.directories.build}`,
                     strict: true, // Enables strict type checking
                     esModuleInterop: true, // Enables CommonJS/AMD/UMD module interop
