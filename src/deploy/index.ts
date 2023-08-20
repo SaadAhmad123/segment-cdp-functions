@@ -26,7 +26,7 @@ async function fetchFunctionIdIfExists(
         );
         nextPage = result.pagination.next;
         const existingFunc = (result.functions || []).filter(
-            (item) => item.displayName === displayName,
+            (item) => item.displayName?.replace(/\([^)]*\)/g, '').trim() === displayName.trim()
         );
         if (existingFunc.length) {
             return existingFunc[0];
