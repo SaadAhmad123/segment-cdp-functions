@@ -25,19 +25,19 @@ export default class Slack {
      * @return {Promise} - A promise that resolves to the result of the fetch call.
      * @private
      */
-    async _log(e: any): Promise<any> {
+    private async _log(e: any): Promise<any> {
         try {
             if (!this.botToken || !this.channel) return;
             return await fetch("https://slack.com/api/chat.postMessage", {
                 method: 'POST',
                 headers: {
-                    Authorization: ${"`Bearer ${ this.botToken }`"},
+                    Authorization: ${'`Bearer ${ this.botToken }`'},
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
                     channel: this.channel,
                     pretty: 1,
-                    text: '${"```"}' + JSON.stringify(e, null, 2) + '${"```"}'
+                    text: '${'```'}' + JSON.stringify(e, null, 2) + '${'```'}'
                 })
             });
         } catch (e) {
@@ -71,4 +71,4 @@ export default class Slack {
         };
         await this._log(event).catch(e => console.log(e));
     }
-}`
+}`;

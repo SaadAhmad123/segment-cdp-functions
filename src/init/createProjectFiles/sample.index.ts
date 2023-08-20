@@ -28,7 +28,7 @@ export async function onTrack(event: Record<string, any>, settings: Record<strin
 
 	if (response.status >= 500 || response.status === 429) {
 		// Retry on 5xx (server errors) and 429s (rate limits)
-		throw retryError(${"`Failed with ${ response.status } `"});
+		throw retryError(${'`Failed with ${ response.status } `'});
 	}
 }
 
@@ -96,4 +96,4 @@ export async function onBatch(events: Record<string, any>[], settings: Record<st
 	// Learn more at https://segment-docs.netlify.app/docs/connections/functions/destination-functions/#batching-the-destination-function
 	throw eventNotSupportedError('onBatch is not supported');
 }
-`
+`;

@@ -61,4 +61,4 @@ declare var zlib: {
 };
 declare class RetryError extends Error { }
 declare class EventNotSupported extends Error { }
-`
+`;

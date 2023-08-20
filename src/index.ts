@@ -6,7 +6,7 @@ import path from 'path';
 import log from './common/log';
 import { addSetting } from './addSetting';
 import { build } from './build';
-
+import { deploy } from './deploy';
 
 let packageInfo: Record<string, any>;
 try {
@@ -35,7 +35,7 @@ program
   .description('Add a setting variable to the Segment Function')
   .action(() => {
     try {
-      addSetting()
+      addSetting();
     } catch (error) {
       log.error('Failed add setting:', (error as Error).message);
     }
@@ -46,9 +46,20 @@ program
   .description('Build the project for Segment deployment')
   .action(() => {
     try {
-      build()
+      build();
     } catch (error) {
       log.error('Failed build:', (error as Error).message);
+    }
+  });
+
+program
+  .command('deploy')
+  .description('Deploy the project for Segment deployment')
+  .action(() => {
+    try {
+      deploy()
+    } catch (error) {
+      log.error('Failed deploy:', (error as Error).message);
     }
   });
 
