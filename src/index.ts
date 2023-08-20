@@ -4,6 +4,7 @@ import { Command } from 'commander';
 import init from './init';
 import path from 'path';
 import log from './common/log';
+import { addSetting } from './addSetting';
 
 
 let packageInfo: Record<string, any>;
@@ -25,6 +26,17 @@ program
       init();
     } catch (error) {
       log.error('Failed to initialize:', (error as Error).message);
+    }
+  });
+
+program
+  .command('add.setting')
+  .description('Add a setting variable to the Segment Function')
+  .action(() => {
+    try {
+      addSetting()
+    } catch (error) {
+      log.error('Failed add setting:', (error as Error).message);
     }
   });
 

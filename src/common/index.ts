@@ -50,3 +50,12 @@ export function readFileContentSync(path: string): string {
     throw new Error(`Failed to read file at ${path}: ${(err as Error).message}`);
   }
 }
+
+export function readJson<T>(path: string): T {
+  const absolutePath = path
+  if (!fs.existsSync(absolutePath)) {
+    throw new Error(`File not found: ${absolutePath}`);
+  }
+  const fileContents = fs.readFileSync(absolutePath, 'utf-8');
+  return JSON.parse(fileContents) as T;
+}

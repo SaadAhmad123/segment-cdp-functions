@@ -1,5 +1,15 @@
 export type LanguageType = "JavaScript" | "TypeScript"
 export type FunctionType = 'Destination' | 'Source'
+export type FunctionSettingVariableType = "ARRAY" | "BOOLEAN" | "STRING" | "TEXT_MAP"
+
+export type FunctionSetting = {
+    name: string
+    label: string
+    description: string
+    type: FunctionSettingVariableType,
+    required: boolean,
+    sensitive: boolean
+}
 
 export type ConfigType = {
     name: string
@@ -11,6 +21,6 @@ export type ConfigType = {
         build: string,
     }
     segment: {
-        settings: Array<Record<string, any>>,
+        settings: Array<FunctionSetting>,
     },
 }

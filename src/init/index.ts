@@ -30,7 +30,7 @@ export default function init() {
     };
 
     writeToFileIfNotExists(
-      path.join(process.cwd(), result.settingsFile as string),
+      path.join(process.cwd(), "segment.config.json"),
       JSON.stringify(config, null, 2),
     );
 

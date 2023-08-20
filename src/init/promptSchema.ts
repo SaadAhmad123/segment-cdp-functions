@@ -32,12 +32,6 @@ export default {
             default: 'Destination',
             required: true,
         },
-        settingsFile: {
-            description:
-                'Name of the settings file (this defines the setting/ config of the the segment function)? <default: segment.config.json>',
-            default: 'segment.config.json',
-            required: true,
-        },
         buildDir: {
             description: 'Where will the final build reside? <default: .build>',
             default: '.build',
