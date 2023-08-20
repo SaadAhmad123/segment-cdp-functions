@@ -7,7 +7,7 @@ export default `
  * @param  {SegmentTrackEvent} event
  * @param  {FunctionSettings} settings
  */
-async function onTrack(event: Record<string, any>, settings: Record<string, any>) {
+export async function onTrack(event: Record<string, any>, settings: Record<string, any>) {
 	// Learn more at https://segment.com/docs/connections/spec/track/
 	const endpoint = ''; // replace with your endpoint
 	let response;
@@ -37,7 +37,7 @@ async function onTrack(event: Record<string, any>, settings: Record<string, any>
  * @param  {SegmentIdentifyEvent} event
  * @param  {FunctionSettings} settings
  */
-async function onIdentify(event: Record<string, any>, settings: Record<string, any>) {
+export async function onIdentify(event: Record<string, any>, settings: Record<string, any>) {
 	// Learn more at https://segment.com/docs/connections/spec/identify/
 	throw new EventNotSupported('identify is not supported');
 }
@@ -47,7 +47,7 @@ async function onIdentify(event: Record<string, any>, settings: Record<string, a
  * @param  {SegmentGroupEvent} event
  * @param  {FunctionSettings} settings
  */
-async function onGroup(event: Record<string, any>, settings: Record<string, any>) {
+export async function onGroup(event: Record<string, any>, settings: Record<string, any>) {
 	// Learn more at https://segment.com/docs/connections/spec/group/
 	throw new EventNotSupported('group is not supported');
 }
@@ -57,7 +57,7 @@ async function onGroup(event: Record<string, any>, settings: Record<string, any>
  * @param  {SegmentPageEvent} event
  * @param  {FunctionSettings} settings
  */
-async function onPage(event: Record<string, any>, settings: Record<string, any>) {
+export async function onPage(event: Record<string, any>, settings: Record<string, any>) {
 	// Learn more at https://segment.com/docs/connections/spec/page/
 	throw new EventNotSupported('page is not supported');
 }
@@ -67,7 +67,7 @@ async function onPage(event: Record<string, any>, settings: Record<string, any>)
  * @param  {SegmentScreenEvent} event
  * @param  {FunctionSettings} settings
  */
-async function onScreen(event: Record<string, any>, settings: Record<string, any>) {
+export async function onScreen(event: Record<string, any>, settings: Record<string, any>) {
 	// Learn more at https://segment.com/docs/connections/spec/screen/
 	throw new EventNotSupported('screen is not supported');
 }
@@ -77,7 +77,7 @@ async function onScreen(event: Record<string, any>, settings: Record<string, any
  * @param  {SegmentAliasEvent} event
  * @param  {FunctionSettings} settings
  */
-async function onAlias(event: Record<string, any>, settings: Record<string, any>) {
+export async function onAlias(event: Record<string, any>, settings: Record<string, any>) {
 	// Learn more at https://segment.com/docs/connections/spec/alias/
 	throw new EventNotSupported('alias is not supported');
 }
@@ -87,12 +87,12 @@ async function onAlias(event: Record<string, any>, settings: Record<string, any>
  * @param  {SegmentDeleteEvent} event
  * @param  {FunctionSettings} settings
  */
-async function onDelete(event: Record<string, any>, settings: Record<string, any>) {
+export async function onDelete(event: Record<string, any>, settings: Record<string, any>) {
 	// Learn more at https://segment.com/docs/partners/spec/#delete
 	throw new EventNotSupported('delete is not supported');
 }
 
-async function onBatch(events: Record<string, any>[], settings: Record<string, any>) {
+export async function onBatch(events: Record<string, any>[], settings: Record<string, any>) {
 	// Learn more at https://segment-docs.netlify.app/docs/connections/functions/destination-functions/#batching-the-destination-function
 	throw new EventNotSupported('onBatch is not supported');
 }
