@@ -1,4 +1,4 @@
-export default `
+export default `import { retryError, eventNotSupportedError } from './utils/errors'
 // Learn more about destination functions API at
 // https://segment.com/docs/connections/destinations/destination-functions
 

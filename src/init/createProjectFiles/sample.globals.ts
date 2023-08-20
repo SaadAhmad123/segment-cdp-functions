@@ -14,22 +14,31 @@ import * as _googleCloudPubsub from '@google-cloud/pubsub';
 import * as _googleCloudStorage from '@google-cloud/storage';
 import * as _googleCloudTasks from '@google-cloud/tasks';
 import * as _hubspotLib from '@hubspot/api-client';
+// @ts-ignore
 import * as _jsforce from 'jsforce';
+// @ts-ignore
 import * as _jsonwebtoken from 'jsonwebtoken';
 import * as _libphonenumberjslib from 'libphonenumber-js';
 import * as _lodash from 'lodash';
+// @ts-ignore
 import * as _nodemailjet from 'mailjet';
 import * as _moment from 'moment-timezone';
+// @ts-ignore
 import * as _fetch from 'node-fetch';
+// @ts-ignore
 import * as _OAuth from 'oauth';
 import * as _sendgridClient from '@sendgrid/client';
 import * as _sendgridMail from '@sendgrid/mail';
+// @ts-ignore
 import * as _skyflowlib from 'skyflow';
 import * as _stripe from 'stripe';
 import * as _twilio from 'twilio';
+// @ts-ignore
 import * as _uuidv5lib from 'uuidv5';
 import * as _winstonLib from 'winston';
+// @ts-ignore
 import * as _xml from 'xml';
+// @ts-ignore
 import * as _xml2js from 'xml2js';
 import * as _zlibLib from 'zlib';
 
@@ -68,5 +77,4 @@ import * as _zlibLib from 'zlib';
 (global as any).winstonlib = { winston: _winstonLib };
 (global as any).xml = _xml;
 (global as any).xml2js = _xml2js;
-(global as any).zlib = { zlib: _zlibLib };
-`
+(global as any).zlib = { zlib: _zlibLib };`

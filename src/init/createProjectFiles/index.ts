@@ -1,5 +1,5 @@
 import path from 'path';
-import { readFileContentSync, writeOrAppendToFile, writeToFileIfNotExists } from '../../common';
+import { checkOrCreateDir, readFileContentSync, writeOrAppendToFile, writeToFileIfNotExists } from '../../common';
 import { ConfigType } from '../../common/types'
 import sampleIndex from './sample.index'
 import sampleGlobals from './sample.globals';
@@ -27,7 +27,7 @@ export function tsConfig(config: ConfigType) {
             {
                 compilerOptions: {
                     target: 'ESNext', // Target ECMAScript version
-                    module: 'ESNext', // Module system
+                    "moduleResolution": "NodeNext",
                     declaration: true, // Generates corresponding '.d.ts' file
                     outDir: `./${config.directories.build}`,
                     strict: true, // Enables strict type checking
@@ -39,7 +39,6 @@ export function tsConfig(config: ConfigType) {
                 exclude: [
                     'node_modules', // your existing exclude pattern
                     '**/*.spec.ts', // this line will exclude all .spec.ts files
-                    `./${config.directories.source}/globals.ts`
                 ],
             },
             null,
@@ -124,8 +123,38 @@ export function srcGlobals(config: ConfigType) {
     )
 }
 
+export function srcUtils(config: ConfigType) {
+    const utilsPath = [process.cwd(), config.directories.source, "utils"]
+    checkOrCreateDir(path.join(...utilsPath))
+    writeToFileIfNotExists(path.join(...[...utilsPath, "index.ts"]), "")
+    writeToFileIfNotExists(path.join(...[...utilsPath, "errors.ts"]), `
+export function retryError(message: string): Error {
+    try {
+        // @ts-ignore
+        return new RetryError(message)
+    }
+    catch {
+        return new Error(${"`[RetryError] ${ message }`"})
+    }
+}
+
+export function eventNotSupportedError(message: string): Error {
+    try {
+        // @ts-ignore
+        return new EventNotSupported(message)
+    }
+    catch {
+        return new Error(${"`[EventNotSupported] ${ message }`"})
+    }
+}
+    `)
+
+
+}
+
 export function src(config: ConfigType) {
     srcIndex(config)
     srcSlack(config)
     srcGlobals(config)
+    srcUtils(config)
 }

@@ -1,6 +1,6 @@
 import prompt from 'prompt';
 import path from 'path';
-import { runCliCommands, writeToFileIfNotExists } from '../common';
+import { checkOrCreateDir, runCliCommands, writeToFileIfNotExists } from '../common';
 import promptSchema from './promptSchema';
 import * as createProjectFiles from './createProjectFiles'
 import log from '../common/log';

@@ -1,10 +1,12 @@
-export default `
+export default `// @ts-ignore
 declare var atob: typeof import('atob');
 declare var AWS: typeof import('aws-sdk');
+// @ts-ignore
 declare var btoa: typeof import('btoa');
 declare var fetchretrylib: {
     fetchretry: typeof import('fetch-retry')
 };
+// @ts-ignore
 declare var FormData: typeof import('form-data');
 declare var google: {
     cloud: {
@@ -19,6 +21,7 @@ declare var google: {
     }
 };
 declare var hubspotlib: {
+    // @ts-ignore
     hubspot: typeof import('hubspot-api-nodejs')
 };
 declare var jsforce: typeof import('jsforce');
@@ -30,7 +33,9 @@ declare var _: typeof import('lodash');
 declare var nodemailjet: {
     nodemailjet: typeof import('mailjet') // assuming 'mailjet' provides the required methods/properties.
 };
+// @ts-ignore
 declare var moment: typeof import('moment-timezone');
+// @ts-ignore
 declare var fetch: typeof import('node-fetch');
 declare var OAuth: typeof import('oauth');
 declare var sendgrid: {
@@ -51,8 +56,9 @@ declare var winstonlib: {
 declare var xml: typeof import('xml');
 declare var xml2js: typeof import('xml2js');
 declare var zlib: {
+    // @ts-ignore
     zlib: typeof import('zlib').zlib
 };
-declare class RetryError extends Error {}
-declare class EventNotSupported extends Error {}
+declare class RetryError extends Error { }
+declare class EventNotSupported extends Error { }
 `
