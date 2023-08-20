@@ -19,8 +19,8 @@ export default {
     },
     functionName: {
       description:
-        'What is the name of your function? <default: my-segment-destination-function>',
-      default: 'my-segment-destination-function',
+        'What is the name of your function? <default: My Segment Function>',
+      default: 'My Segment Function',
       required: true,
     },
     functionType: {

@@ -55,9 +55,9 @@ program
 program
   .command('deploy')
   .description('Deploy the project for Segment deployment')
-  .action(() => {
+  .action(async () => {
     try {
-      deploy()
+      await deploy()
     } catch (error) {
       log.error('Failed deploy:', (error as Error).message);
     }
