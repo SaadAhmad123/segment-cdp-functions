@@ -24,7 +24,7 @@ export function addSetting() {
                 label: result.label.toString(),
                 description: result.description.toString(),
                 type: result.type.toString() as FunctionSettingVariableType,
-                required: result.require.toString() === "Yes",
+                required: result.required.toString() === "Yes",
                 sensitive: result.sensitive.toString() === "YES",
             } as FunctionSetting
         ]

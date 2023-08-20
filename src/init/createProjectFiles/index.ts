@@ -63,6 +63,7 @@ export function packageJson(config: ConfigType) {
                 scripts: {
                     dev: `npx ts-node ./${config.directories.source}/index.ts`,
                     build: 'npx rollup --config',
+                    "add.setting": "npx segment-cdp-functions add.setting"
                 },
                 keywords: [],
                 author: 'segment-cdp-developer',
