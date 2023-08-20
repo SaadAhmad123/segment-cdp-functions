@@ -56,7 +56,7 @@ export function packageJson(config: ConfigType) {
         path.join(process.cwd(), 'package.json'),
         JSON.stringify(
             {
-                name: config.name,
+                name: "my-segment-function",
                 version: '1.0.0',
                 description: config.description,
                 main: `./${config.directories.source}/index.ts`,
