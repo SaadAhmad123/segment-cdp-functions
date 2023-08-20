@@ -5,6 +5,7 @@ import init from './init';
 import path from 'path';
 import log from './common/log';
 import { addSetting } from './addSetting';
+import { build } from './build';
 
 
 let packageInfo: Record<string, any>;
@@ -37,6 +38,17 @@ program
       addSetting()
     } catch (error) {
       log.error('Failed add setting:', (error as Error).message);
+    }
+  });
+
+program
+  .command('build')
+  .description('Build the project for Segment deployment')
+  .action(() => {
+    try {
+      build()
+    } catch (error) {
+      log.error('Failed build:', (error as Error).message);
     }
   });
 

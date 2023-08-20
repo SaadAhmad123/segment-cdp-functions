@@ -62,7 +62,7 @@ export function packageJson(config: ConfigType) {
                 main: `./${config.directories.source}/index.ts`,
                 scripts: {
                     dev: `npx ts-node ./${config.directories.source}/index.ts`,
-                    build: 'npx rollup --config',
+                    build: 'npx rollup --config && npx segment-cdp-functions build',
                     "add.setting": "npx segment-cdp-functions add.setting"
                 },
                 keywords: [],
@@ -92,7 +92,7 @@ var typescript = require('@rollup/plugin-typescript');
 module.exports = {
   input: '${config.directories.source}/index.ts',
   output: {
-    dir: './${config.directories.build}',
+    file: './${config.directories.build}/index.js',
     format: 'cjs'
   },
   plugins: [typescript()]
