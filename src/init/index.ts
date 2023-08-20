@@ -44,7 +44,7 @@ export default function init() {
     try {
       runCliCommands([
         config.transpiler === "TypeScript" ? "npm install typescript tslib ts-node segment-cdp-functions rollup @rollup/plugin-typescript --save-dev" : "",
-        "npm install atob @types/atob aws-sdk btoa @types/btoa fetch-retry form-data @google-cloud/automl @google-cloud/bigquery @google-cloud/datastore @google-cloud/firestore @google-cloud/functions @google-cloud/pubsub @google-cloud/storage @google-cloud/tasks @hubspot/api-client jsforce jsonwebtoken libphonenumber-js  @types/lodash mailjet moment-timezone node-fetch oauth @sendgrid/client @sendgrid/mail skyflow stripe twilio uuidv5 winston xml xml2js zlib",
+        //"npm install atob @types/atob aws-sdk btoa @types/btoa fetch-retry form-data @google-cloud/automl @google-cloud/bigquery @google-cloud/datastore @google-cloud/firestore @google-cloud/functions @google-cloud/pubsub @google-cloud/storage @google-cloud/tasks @hubspot/api-client jsforce jsonwebtoken libphonenumber-js  @types/lodash mailjet moment-timezone node-fetch oauth @sendgrid/client @sendgrid/mail skyflow stripe twilio uuidv5 winston xml xml2js zlib",
         "git init"
       ].filter(item => Boolean(item.trim().length)))
     } catch (error) {

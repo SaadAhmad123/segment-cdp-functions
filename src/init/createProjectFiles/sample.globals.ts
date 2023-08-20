@@ -5,14 +5,23 @@ import * as _AWS from 'aws-sdk';
 import _btoa from 'btoa';
 import * as _fetchretry from 'fetch-retry';
 import * as _FormData from 'form-data';
+// @ts-ignore
 import * as _googleCloudAutoml from '@google-cloud/automl';
+// @ts-ignore
 import * as _googleCloudBigquery from '@google-cloud/bigquery';
+// @ts-ignore
 import * as _googleCloudDatastore from '@google-cloud/datastore';
+// @ts-ignore
 import * as _googleCloudFirestore from '@google-cloud/firestore';
+// @ts-ignore
 import * as _googleCloudFunctions from '@google-cloud/functions';
+// @ts-ignore
 import * as _googleCloudPubsub from '@google-cloud/pubsub';
+// @ts-ignore
 import * as _googleCloudStorage from '@google-cloud/storage';
+// @ts-ignore
 import * as _googleCloudTasks from '@google-cloud/tasks';
+// @ts-ignore
 import * as _hubspotLib from '@hubspot/api-client';
 // @ts-ignore
 import * as _jsforce from 'jsforce';
@@ -31,6 +40,7 @@ import * as _sendgridClient from '@sendgrid/client';
 import * as _sendgridMail from '@sendgrid/mail';
 // @ts-ignore
 import * as _skyflowlib from 'skyflow';
+// @ts-ignore
 import * as _stripe from 'stripe';
 import * as _twilio from 'twilio';
 // @ts-ignore

@@ -35,10 +35,14 @@ export function tsConfig(config: ConfigType) {
                     skipLibCheck: true, // Skip type checking of all declaration files
                     forceConsistentCasingInFileNames: true,
                 },
-                include: [`./${config.directories.source}/**/*.ts`],
+                include: [
+                    `./${config.directories.source}/**/*.ts`,
+                    `./${config.directories.source}/globals.d.ts`,
+                ],
                 exclude: [
                     'node_modules', // your existing exclude pattern
                     '**/*.spec.ts', // this line will exclude all .spec.ts files
+                    `./${config.directories.source}/globals.ts`,
                 ],
             },
             null,
@@ -155,6 +159,6 @@ export function eventNotSupportedError(message: string): Error {
 export function src(config: ConfigType) {
     srcIndex(config)
     srcSlack(config)
-    srcGlobals(config)
+    //srcGlobals(config)
     srcUtils(config)
 }

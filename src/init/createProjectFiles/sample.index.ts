@@ -23,12 +23,12 @@ export async function onTrack(event: Record<string, any>, settings: Record<strin
 		});
 	} catch (error) {
 		// Retry on connection error
-		throw new RetryError((error as Error).message);
+		throw retryError((error as Error).message);
 	}
 
 	if (response.status >= 500 || response.status === 429) {
 		// Retry on 5xx (server errors) and 429s (rate limits)
-		throw new RetryError(${"`Failed with ${ response.status } `"});
+		throw retryError(${"`Failed with ${ response.status } `"});
 	}
 }
 
@@ -39,7 +39,7 @@ export async function onTrack(event: Record<string, any>, settings: Record<strin
  */
 export async function onIdentify(event: Record<string, any>, settings: Record<string, any>) {
 	// Learn more at https://segment.com/docs/connections/spec/identify/
-	throw new EventNotSupported('identify is not supported');
+	throw eventNotSupportedError('identify is not supported');
 }
 
 /**
@@ -49,7 +49,7 @@ export async function onIdentify(event: Record<string, any>, settings: Record<st
  */
 export async function onGroup(event: Record<string, any>, settings: Record<string, any>) {
 	// Learn more at https://segment.com/docs/connections/spec/group/
-	throw new EventNotSupported('group is not supported');
+	throw eventNotSupportedError('group is not supported');
 }
 
 /**
@@ -59,7 +59,7 @@ export async function onGroup(event: Record<string, any>, settings: Record<strin
  */
 export async function onPage(event: Record<string, any>, settings: Record<string, any>) {
 	// Learn more at https://segment.com/docs/connections/spec/page/
-	throw new EventNotSupported('page is not supported');
+	throw eventNotSupportedError('page is not supported');
 }
 
 /**
@@ -69,7 +69,7 @@ export async function onPage(event: Record<string, any>, settings: Record<string
  */
 export async function onScreen(event: Record<string, any>, settings: Record<string, any>) {
 	// Learn more at https://segment.com/docs/connections/spec/screen/
-	throw new EventNotSupported('screen is not supported');
+	throw eventNotSupportedError('screen is not supported');
 }
 
 /**
@@ -79,7 +79,7 @@ export async function onScreen(event: Record<string, any>, settings: Record<stri
  */
 export async function onAlias(event: Record<string, any>, settings: Record<string, any>) {
 	// Learn more at https://segment.com/docs/connections/spec/alias/
-	throw new EventNotSupported('alias is not supported');
+	throw eventNotSupportedError('alias is not supported');
 }
 
 /**
@@ -89,11 +89,11 @@ export async function onAlias(event: Record<string, any>, settings: Record<strin
  */
 export async function onDelete(event: Record<string, any>, settings: Record<string, any>) {
 	// Learn more at https://segment.com/docs/partners/spec/#delete
-	throw new EventNotSupported('delete is not supported');
+	throw eventNotSupportedError('delete is not supported');
 }
 
 export async function onBatch(events: Record<string, any>[], settings: Record<string, any>) {
 	// Learn more at https://segment-docs.netlify.app/docs/connections/functions/destination-functions/#batching-the-destination-function
-	throw new EventNotSupported('onBatch is not supported');
+	throw eventNotSupportedError('onBatch is not supported');
 }
 `
