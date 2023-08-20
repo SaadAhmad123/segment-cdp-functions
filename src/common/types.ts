@@ -1,13 +1,13 @@
+export type LanguageType = "JavaScript" | "TypeScript"
+
 export type ConfigType = {
     name: string
     description: string
-    type: "JavaScript" | "TypeScript"
+    type: LanguageType
     transpiler: string
     directories: {
         source: string,
-        transpiled: string,
         build: string,
-        bundle: string,
     }
     segment: {
         settings: Array<Record<string, any>>,

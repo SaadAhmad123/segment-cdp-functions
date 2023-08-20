@@ -38,23 +38,9 @@ export default {
             default: 'segment.config.json',
             required: true,
         },
-        transpiledCodeDir: {
-            description: 'Where will the transpiled code reside? <default: .dist>',
-            default: '.dist',
-            message: 'Invalid directory path',
-            required: true,
-            conform: checkOrCreateDir,
-        },
         buildDir: {
             description: 'Where will the final build reside? <default: .build>',
             default: '.build',
-            message: 'Invalid directory path',
-            required: true,
-            conform: checkOrCreateDir,
-        },
-        bundleDir: {
-            description: 'Where will the final bundle reside? <default: .bundle>',
-            default: '.bundle',
             message: 'Invalid directory path',
             required: true,
             conform: checkOrCreateDir,

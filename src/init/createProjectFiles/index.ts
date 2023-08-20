@@ -26,10 +26,10 @@ export function tsConfig(config: ConfigType) {
         JSON.stringify(
             {
                 compilerOptions: {
-                    target: 'ES6', // Target ECMAScript version
-                    module: 'commonjs', // Module system
+                    target: 'ESNext', // Target ECMAScript version
+                    module: 'ESNext', // Module system
                     declaration: true, // Generates corresponding '.d.ts' file
-                    outDir: `./${config.directories.transpiled}`,
+                    outDir: `./${config.directories.build}`,
                     strict: true, // Enables strict type checking
                     esModuleInterop: true, // Enables CommonJS/AMD/UMD module interop
                     skipLibCheck: true, // Skip type checking of all declaration files
@@ -57,14 +57,10 @@ export function packageJson(config: ConfigType) {
                 name: config.name,
                 version: '1.0.0',
                 description: config.description,
-                main: `./${config.directories.build}/index.ts`,
+                main: `./${config.directories.source}/index.ts`,
                 scripts: {
-                    compile:
-                        config.transpiler === 'TypeScript'
-                            ? `npx tsc && npx babel ./${config.directories.transpiled} --out-dir ./${config.directories.build}`
-                            : `npx babel ./${config.directories.source} --out-dir ./${config.directories.build}`,
                     dev: `npx ts-node ./${config.directories.source}/index.ts`,
-                    rollup: 'npm run compile && npx rollup --config',
+                    build: 'npm run compile && npx rollup --config',
                 },
                 keywords: [],
                 author: 'segment-cdp-developer',
@@ -83,22 +79,20 @@ export function gitIgnore(config: ConfigType) {
         [
             'node_modules',
             config.directories.build,
-            config.directories.transpiled,
-            config.directories.bundle,
         ].join('\n'),
     );
 }
 
 export function rollupConfig(config: ConfigType) {
-    const content = `var commonjs = require('@rollup/plugin-commonjs');
+    const content = `// rollup.config.js
+var typescript = require('@rollup/plugin-typescript');
 module.exports = {
-  input: './${config.directories.build}/index.js',
+  input: '${config.directories.source}/index.ts',
   output: {
-    file: './${config.directories.bundle}/index.js',
-    format: 'cjs',
-    sourcemap: false // optional if you want source maps
+    dir: './${config.directories.build}',
+    format: 'cjs'
   },
-  plugins: [commonjs()]
+  plugins: [typescript()]
 };`;
     writeToFileIfNotExists(
         path.join(process.cwd(), 'rollup.config.js'),

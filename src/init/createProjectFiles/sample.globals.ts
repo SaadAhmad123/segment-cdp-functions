@@ -1,9 +1,9 @@
 export default `
 // Import the libraries
-import * as _atob from 'atob';
+import _atob from 'atob';
 import * as _AWS from 'aws-sdk';
-import * as _btoa from 'btoa';
-import { fetchretry as _fetchretry } from 'fetch-retry';
+import _btoa from 'btoa';
+import * as _fetchretry from 'fetch-retry';
 import * as _FormData from 'form-data';
 import * as _googleCloudAutoml from '@google-cloud/automl';
 import * as _googleCloudBigquery from '@google-cloud/bigquery';
@@ -16,22 +16,22 @@ import * as _googleCloudTasks from '@google-cloud/tasks';
 import * as _hubspotLib from '@hubspot/api-client';
 import * as _jsforce from 'jsforce';
 import * as _jsonwebtoken from 'jsonwebtoken';
-import { libphonenumberjs as _libphonenumberjslib } from 'libphonenumber-js';
+import * as _libphonenumberjslib from 'libphonenumber-js';
 import * as _lodash from 'lodash';
-import { nodemailjet as _nodemailjet } from 'mailjet';
+import * as _nodemailjet from 'mailjet';
 import * as _moment from 'moment-timezone';
 import * as _fetch from 'node-fetch';
 import * as _OAuth from 'oauth';
-import { client as _sendgridClient } from '@sendgrid/client';
-import { mail as _sendgridMail } from '@sendgrid/mail';
-import { skyflow as _skyflowlib } from 'skyflow';
+import * as _sendgridClient from '@sendgrid/client';
+import * as _sendgridMail from '@sendgrid/mail';
+import * as _skyflowlib from 'skyflow';
 import * as _stripe from 'stripe';
 import * as _twilio from 'twilio';
-import { uuidv5 as _uuidv5lib } from 'uuidv5';
-import { winston as _winstonLib } from 'winston';
+import * as _uuidv5lib from 'uuidv5';
+import * as _winstonLib from 'winston';
 import * as _xml from 'xml';
 import * as _xml2js from 'xml2js';
-import { zlib as _zlibLib } from 'zlib';
+import * as _zlibLib from 'zlib';
 
 // Expose them as globals
 (global as any).atob = _atob;

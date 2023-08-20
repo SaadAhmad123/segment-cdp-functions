@@ -22,9 +22,7 @@ export default function init() {
       transpiler: result.projectType.toString(),
       directories: {
         source: result.sourceDir.toString(),
-        transpiled: result.transpiledCodeDir.toString(),
         build: result.buildDir.toString(),
-        bundle: result.bundleDir.toString(),
       },
       segment: {
         settings: [],
@@ -36,7 +34,6 @@ export default function init() {
       JSON.stringify(config, null, 2),
     );
 
-    createProjectFiles.babelRc()
     createProjectFiles.tsConfig(config)
     createProjectFiles.packageJson(config)
     createProjectFiles.gitIgnore(config)
@@ -46,9 +43,8 @@ export default function init() {
     log.log('Configuration saved successfully!');
     try {
       runCliCommands([
-        config.type === "TypeScript" ? "npm install typescript ts-node segment-cdp-functions --save-dev" : "",
-        "npm install --save-dev @babel/core @babel/cli @babel/preset-env @babel/preset-typescript @babel/plugin-transform-modules-commonjs @rollup/plugin-commonjs rollup",
-        "npm install --save-dev atob aws-sdk btoa fetch-retry form-data @google-cloud/automl @google-cloud/bigquery @google-cloud/datastore @google-cloud/firestore @google-cloud/functions @google-cloud/pubsub @google-cloud/storage @google-cloud/tasks @hubspot/api-client jsforce jsonwebtoken libphonenumber-js lodash mailjet moment-timezone node-fetch oauth @sendgrid/client @sendgrid/mail skyflow stripe twilio uuidv5 winston xml xml2js zlib",
+        config.type === "TypeScript" ? "npm install typescript tslib ts-node segment-cdp-functions rollup @rollup/plugin-typescript --save-dev" : "",
+        "npm install --save-dev atob @types/atob aws-sdk btoa @types/btoa fetch-retry form-data @google-cloud/automl @google-cloud/bigquery @google-cloud/datastore @google-cloud/firestore @google-cloud/functions @google-cloud/pubsub @google-cloud/storage @google-cloud/tasks @hubspot/api-client jsforce jsonwebtoken libphonenumber-js  @types/lodash mailjet moment-timezone node-fetch oauth @sendgrid/client @sendgrid/mail skyflow stripe twilio uuidv5 winston xml xml2js zlib",
         "git init"
       ].filter(item => Boolean(item.trim().length)))
     } catch (error) {
